@@ -15,7 +15,7 @@ import nodeSel from '../../public/images/node_sel.png';
 const navermaps = window.naver.maps
 
 const CompNaverMap = (props) => {
-    const { setMapMinMax, mapCenterLonLat, zoomSize, markerAddOpt, markerEvtOpt, polylineAddOpt, polylineEvtOpt, polylineAddMinMaxOpt, form, setForm } = props;
+    const { setMapMinMax, mapCenterLonLat, zoomSize, markerAddOpt, markerEvtOpt, polylineAddOpt, polylineEvtOpt, ...others} = props;
 
     //네이버지도
     const mapId = props?.mapId || 'navermap'
@@ -95,19 +95,19 @@ const CompNaverMap = (props) => {
         // });
     }, []);
 
-    //지도 줌 변경
-    useEffect(() => {
-        if(zoomSize !== undefined){//zoomSize가 있는경우
-            map.current.setZoom(zoomSize);
-        }
-    }, [zoomSize])
-
     //지도 중심 변경
     useEffect(() => {
         if(mapCenterLonLat !== undefined){
             map.current.setCenter(new navermaps.LatLng(mapCenterLonLat[1], mapCenterLonLat[0]));
         }
     }, [mapCenterLonLat])
+
+    //지도 줌 변경
+    useEffect(() => {
+        if(zoomSize !== undefined){//zoomSize가 있는경우
+            map.current.setZoom(zoomSize);
+        }
+    }, [zoomSize])
     /******************** 공통기능 End ********************/
 
     /******************** 마커 관련 기능 ********************/
@@ -136,8 +136,6 @@ const CompNaverMap = (props) => {
                 //지도에 추가
                 marker.setMap(map.current);
             }
-
-            console.log("실행!!!!!!!!!");
         }
     }, [markerAddOpt])
     
@@ -271,8 +269,6 @@ const CompNaverMap = (props) => {
                         navermaps.Event.addListener(marker, 'click', function (e) {
                             if(marker.getIcon() === nodeNom){
                                 marker.setIcon(nodeEdit);
-                                //클릭 시 폼에 데이터 세팅
-                                
                             }else{
                                 marker.setIcon(nodeNom);
                             }
@@ -290,7 +286,6 @@ const CompNaverMap = (props) => {
         if(polylineAddOpt !== undefined && Object.keys(polylineAddOpt).length > 0){
             //polylineAddOpt 있는 경우
             const key = polylineAddOpt.key;
-            const linkVtx = polylineAddOpt.linkVtx;
             const data = polylineAddOpt.data;
 
             for(let i=0, n=data.length; i<n; i++){
