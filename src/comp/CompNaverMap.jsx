@@ -37,7 +37,7 @@ const CompNaverMap = (props) => {
     useEffect(() => {
         map.current = new navermaps.Map(mapId, {
             zoom: 14,
-            center: new navermaps.LatLng(37.715133, 126.734086),//해당 좌표를 기점으로 지도가 추가된다.
+            center: new navermaps.LatLng(36.20007193, 127.4507049),//해당 좌표를 기점으로 지도가 추가된다.
             mapTypeId: navermaps.MapTypeId.TERRAIN,
             minZoom: 6,
             maxZoom: 20,
@@ -49,29 +49,29 @@ const CompNaverMap = (props) => {
             }
         )
 
-        //특정 줌 size 이하일때는 마커와 폴리라인 표출하지 않음
-        navermaps.Event.addListener(map.current, 'zoom_changed', function (e) {
-            const keyList = Object.keys(markersInfo.current);
-            const keyList2 = Object.keys(polylinesInfo.current);
+        // //특정 줌 size 이하일때는 마커와 폴리라인 표출하지 않음
+        // navermaps.Event.addListener(map.current, 'zoom_changed', function (e) {
+        //     const keyList = Object.keys(markersInfo.current);
+        //     const keyList2 = Object.keys(polylinesInfo.current);
 
-            if(e < 12){
-                for(let i=0, n=keyList.length; i<n; i++){
-                    markersInfo.current[keyList[i]].setVisible(false);
-                }
+        //     if(e < 12){
+        //         for(let i=0, n=keyList.length; i<n; i++){
+        //             markersInfo.current[keyList[i]].setVisible(false);
+        //         }
 
-                for(let i=0, n=keyList2.length; i<n; i++){
-                    polylinesInfo.current[keyList2[i]].setVisible(false);
-                }
-            }else{
-                for(let i=0, n=keyList.length; i<n; i++){
-                    markersInfo.current[keyList[i]].setVisible(true);
-                }
+        //         for(let i=0, n=keyList2.length; i<n; i++){
+        //             polylinesInfo.current[keyList2[i]].setVisible(false);
+        //         }
+        //     }else{
+        //         for(let i=0, n=keyList.length; i<n; i++){
+        //             markersInfo.current[keyList[i]].setVisible(true);
+        //         }
 
-                for(let i=0, n=keyList2.length; i<n; i++){
-                    polylinesInfo.current[keyList2[i]].setVisible(true);
-                }
-            }
-        });
+        //         for(let i=0, n=keyList2.length; i<n; i++){
+        //             polylinesInfo.current[keyList2[i]].setVisible(true);
+        //         }
+        //     }
+        // });
         
         // 지도 MixMax 크기 리턴
         if(setMapMinMax !== undefined){
@@ -97,7 +97,7 @@ const CompNaverMap = (props) => {
 
     //지도 중심 변경
     useEffect(() => {
-        if(mapCenterLonLat !== undefined){
+        if(mapCenterLonLat !== undefined && mapCenterLonLat.length > 0){
             map.current.setCenter(new navermaps.LatLng(mapCenterLonLat[1], mapCenterLonLat[0]));
         }
     }, [mapCenterLonLat])
