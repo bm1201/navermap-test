@@ -15,7 +15,7 @@ import nodeSel from '../../public/images/node_sel.png';
 const navermaps = window.naver.maps
 
 const CompNaverMap = (props) => {
-    console.log("ㅇㄹㅇㄹㅇㄹㅇㄹㅇ");
+    console.log("ㅇㄹㅇㄹㅇㄹㅇㄹㅇㄹㅇ");
     const { setMapMinMax, mapCenterLonLat, zoomSize, markerAddOpt, markerEvtOpt, polylineAddOpt, polylineEvtOpt, ...others} = props;
 
     //네이버지도
